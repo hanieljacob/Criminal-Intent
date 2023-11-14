@@ -253,8 +253,14 @@ class CrimeDetailFragment : Fragment() {
     }
 
     private fun formatDate(date: Date): String {
+
+        /*
         val japanLocale: Locale = Locale.JAPAN
         val dateFormat = SimpleDateFormat("MMM dd, yyyy", japanLocale)
         return dateFormat.format(date)
+
+         */
+        return DateFormat.getLongDateFormat(context).format(date);
+
     }
 }
