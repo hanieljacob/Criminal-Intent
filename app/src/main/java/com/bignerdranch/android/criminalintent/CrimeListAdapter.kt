@@ -28,8 +28,8 @@ class CrimeHolder(
         }
     }
     private fun formatDate(date: Date): String {
-        val japanLocale: Locale = Locale.JAPAN
-        val dateFormat = SimpleDateFormat("MMM dd, yyyy", japanLocale)
+        val locale: Locale = Locale.getDefault()
+        val dateFormat = SimpleDateFormat("MMM dd, yyyy", locale)
         return dateFormat.format(date)
     }
 }
