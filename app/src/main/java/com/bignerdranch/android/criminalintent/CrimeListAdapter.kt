@@ -1,5 +1,7 @@
 package com.bignerdranch.android.criminalintent
 
+import android.content.Context
+import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,11 +13,12 @@ import java.util.Locale
 import java.util.UUID
 
 class CrimeHolder(
-    private val binding: ListItemCrimeBinding
+    private val binding: ListItemCrimeBinding,
+    private val context: Context
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind(crime: Crime, onCrimeClicked: (crimeId: UUID) -> Unit) {
         binding.crimeTitle.text = crime.title
-        binding.crimeDate.text = formatDate(crime.date)
+        binding.crimeDate.text = formatDate(crime.date, context)
 
         binding.root.setOnClickListener {
             onCrimeClicked(crime.id)
@@ -27,10 +30,8 @@ class CrimeHolder(
             View.GONE
         }
     }
-    private fun formatDate(date: Date): String {
-        val locale: Locale = Locale.getDefault()
-        val dateFormat = SimpleDateFormat("MMM dd, yyyy", locale)
-        return dateFormat.format(date)
+    private fun formatDate(date: Date, context: Context): String {
+        return DateFormat.getLongDateFormat(context).format(date);
     }
 }
 
@@ -44,7 +45,7 @@ class CrimeListAdapter(
     ): CrimeHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ListItemCrimeBinding.inflate(inflater, parent, false)
-        return CrimeHolder(binding)
+        return CrimeHolder(binding, parent.context)
     }
 
     override fun onBindViewHolder(holder: CrimeHolder, position: Int) {
